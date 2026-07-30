@@ -8,250 +8,94 @@
 <link rel="canonical" href="https://avalidurl.github.io/">
 <link rel="icon" href="https://avatars.githubusercontent.com/u/11991363?v=4">
 <style>
+/* GitHub markdown rendering, inlined (Primer values) */
 :root{
-  --ink:#0a0a0a;
-  --paper:#f4f4f2;
-  --dim:#5c5c5c;
-  --faint:#d8d8d4;
+  --fg:#1f2328;
+  --bg:#ffffff;
+  --muted:#59636e;
+  --border:#d1d9e0;
+  --link:#0969da;
+  --btn:#1f883d;
+  --btn-hover:#1a7f37;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --ink:#e8e8e6;
-    --paper:#0e0e0e;
-    --dim:#9a9a9a;
-    --faint:#2a2a2a;
+    --fg:#f0f6fc;
+    --bg:#0d1117;
+    --muted:#9198a1;
+    --border:#3d444d;
+    --link:#4493f8;
+    --btn:#238636;
+    --btn-hover:#29903b;
   }
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--paper)}
+*{box-sizing:border-box}
+html{background:var(--bg)}
 body{
-  font-family:"SF Mono","IBM Plex Mono","JetBrains Mono",ui-monospace,Menlo,monospace;
-  font-size:14px;
-  line-height:1.55;
-  font-variant-numeric:tabular-nums;
-  color:var(--ink);
-  background:var(--paper);
-  max-width:880px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size:16px;
+  line-height:1.5;
+  color:var(--fg);
+  background:var(--bg);
+  max-width:980px;
   margin:0 auto;
-  padding:2.5rem 1.25rem 5rem;
-  text-align:left;
+  padding:45px;
+  word-wrap:break-word;
 }
-a{color:var(--ink);text-decoration:underline}
-p{max-width:72ch}
-section{margin-top:3rem}
-
-/* masthead */
-.masthead{border:2px solid var(--ink)}
-.masthead-row{
-  display:flex;
-  flex-wrap:wrap;
-  border-top:1px solid var(--ink);
+@media (max-width:767px){
+  body{padding:15px}
 }
-.masthead-row:first-child{border-top:0}
-.masthead-cell{
-  padding:.45rem .75rem;
-  font-size:10.5px;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  border-left:1px solid var(--ink);
-  flex:1 1 auto;
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}
+h1{font-size:2em;margin-top:0;padding-bottom:.3em;border-bottom:1px solid var(--border)}
+h2{font-size:1.5em;padding-bottom:.3em;border-bottom:1px solid var(--border)}
+h3{font-size:1.25em}
+p,ul,blockquote,form{margin-top:0;margin-bottom:16px}
+ul{padding-left:2em}
+li+li{margin-top:.25em}
+li>ul{margin-top:.25em;margin-bottom:0}
+blockquote{
+  margin-left:0;margin-right:0;
+  padding:0 1em;
+  color:var(--muted);
+  border-left:.25em solid var(--border);
 }
-.masthead-cell:first-child{border-left:0}
-.masthead-cell.dim{color:var(--dim)}
-.meta-3{justify-content:space-between}
-.titleblock{
-  display:block;
-  padding:1.4rem 1rem 1.5rem;
-  border-top:1px solid var(--ink);
+hr{height:.25em;padding:0;margin:24px 0;background-color:var(--border);border:0}
+.subscribe{display:flex;gap:8px;flex-wrap:wrap;max-width:440px}
+.subscribe input[type="email"]{
+  flex:1;min-width:190px;
+  padding:5px 12px;
+  font-size:14px;line-height:20px;
+  color:var(--fg);background:var(--bg);
+  border:1px solid var(--border);border-radius:6px;
 }
-h1{
-  font-size:clamp(26px,5.5vw,44px);
-  font-weight:700;
-  line-height:1.05;
-  letter-spacing:.02em;
-}
-.subtitle{
-  margin-top:.6rem;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  color:var(--dim);
-}
-.stamp{
-  display:inline-block;
-  margin-top:1.1rem;
-  padding:.3rem .7rem;
-  border:2px solid var(--ink);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  transform:rotate(-1.6deg);
-}
-
-/* section headings */
-h2{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  gap:1rem;
-  font-size:12px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  border-bottom:2px solid var(--ink);
-  padding-bottom:.35rem;
-  margin-bottom:1rem;
-}
-.h2right{
-  display:inline-flex;
-  align-items:baseline;
-  gap:1rem;
-  font-weight:400;
-  color:var(--dim);
-  letter-spacing:.14em;
-}
-.secno{font-weight:400;color:var(--dim);letter-spacing:.14em}
-
-/* collapsible files */
-details.file{margin-top:3rem}
-details.file > summary{list-style:none;cursor:pointer}
-details.file > summary::-webkit-details-marker{display:none}
-details.file > summary h2{margin-bottom:0}
-details.file[open] > summary h2{margin-bottom:1rem}
-.toggle::before{content:"open"}
-details.file[open] .toggle::before{content:"close"}
-
-/* lists */
-ul{padding-left:1.4rem}
-li{max-width:70ch;margin-top:.45rem}
-li > ul{margin-top:.3rem}
-
-/* subgroup labels */
-.sub-label{
-  margin:1.2rem 0 .1rem;
-  font-size:10.5px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  color:var(--dim);
-}
-ul + .sub-label{margin-top:1.4rem}
-
-/* raise bar — the one inverted element: ink ground, paper text */
-.raise-bar{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:.35rem .8ch;
-  margin:0 0 1rem;
-  padding:.55rem .8rem;
-  background:var(--ink);
-  color:var(--paper);
-  font-size:12.5px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-.raise-bar b{letter-spacing:.22em}
-.raise-note{color:var(--faint)}
-.raise-chip{
-  color:var(--paper);
-  border:1px solid var(--paper);
-  padding:.15rem .6rem;
-  text-decoration:none;
-  font-weight:700;
-}
-.raise-chip:hover,.raise-chip:focus-visible{
-  text-decoration:underline;
-  text-decoration-thickness:1px;
-  text-underline-offset:3px;
-}
-
-/* distribution block */
-.dist-form{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  max-width:420px;
-  margin:.75rem 0;
-}
-.dist-form input[type="email"]{
-  flex:1;
-  min-width:190px;
-  padding:10px 12px;
-  border:1px solid var(--ink);
-  background:transparent;
-  color:var(--ink);
-  font:inherit;
-}
-.dist-form input[type="email"]::placeholder{color:var(--dim)}
-.dist-form button{
-  padding:10px 18px;
-  border:1px solid var(--ink);
-  background:var(--ink);
-  color:var(--paper);
-  font:inherit;
+.subscribe input[type="email"]::placeholder{color:var(--muted)}
+.subscribe button{
+  padding:5px 16px;
+  font-size:14px;font-weight:600;line-height:20px;
+  color:#ffffff;background:var(--btn);
+  border:1px solid rgba(31,35,40,.15);border-radius:6px;
   cursor:pointer;
 }
-.feeds{margin:.4rem 0;font-size:12px;color:var(--dim);max-width:72ch}
-.feeds a{color:var(--ink)}
-address{
-  margin-top:1rem;
-  font-style:normal;
-  font-size:11.5px;
-  color:var(--dim);
-}
-
-/* perforation + colophon */
-.perforation{
-  height:10px;
-  margin-top:3rem;
-  background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);
-}
-.colophon{
-  border-top:2px solid var(--ink);
-  margin-top:.9rem;
-  padding-top:.6rem;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:.4rem 1.5rem;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  color:var(--dim);
-}
+.subscribe button:hover{background:var(--btn-hover)}
+.muted{color:var(--muted)}
+footer{font-size:14px;color:var(--muted)}
+footer address{font-style:normal}
 </style>
 </head>
 
 <body>
 
-<header class="masthead">
-  <div class="masthead-row meta-3">
-    <span class="masthead-cell">Gökhan Turhan · avalidurl</span>
-    <span class="masthead-cell">Doc GT-001 · Rev B</span>
-    <span class="masthead-cell dim">Filed 2026-07-17 · Revised 2026-07-18</span>
-  </div>
-  <div class="titleblock">
-    <h1>Gökhan Turhan</h1>
-    <p class="subtitle">Curated personal index — maintained by hand</p>
-    <span class="stamp">Public record — active file</span>
-  </div>
-  <div class="masthead-row">
-    <span class="masthead-cell">Canonical: avalidurl.github.io</span>
-    <span class="masthead-cell"><a href="/cv/">CV: /cv/</a></span>
-    <span class="masthead-cell dim">© 2026 Gökhan Turhan</span>
-  </div>
-</header>
+<h1>Gökhan Turhan</h1>
 
-<section>
-<h2>Preamble <span class="secno">§0</span></h2>
 <p>Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end — a venue, a payment rail, a benchmark, an open standard, a security program — across fintech infrastructure, AI-native tooling, and tokenized markets. Live, in production, taking real machine payments.</p>
-<p style="margin-top:.7rem">Indie researcher, generalist. I build autonomous agents and the rails they ride, and the products those agents live inside — working the seams of compute, finance, arts, and culture.</p>
-<p style="margin-top:.7rem">Full record: <a href="/cv/">CV</a> (mirrored from <a href="https://gokhanturhan.com/cv/">gokhanturhan.com/cv</a>).</p>
-</section>
 
-<details class="file" open>
-<summary><h2>products <span class="h2right"><span class="toggle"></span><span class="secno">§1</span></span></h2></summary>
+<p>Indie researcher, generalist. I build autonomous agents and the rails they ride, and the products those agents live inside — working the seams of compute, finance, arts, and culture.</p>
+
+<p>Full record: <a href="/cv/">CV</a> (mirrored from <a href="https://gokhanturhan.com/cv/">gokhanturhan.com/cv</a>).</p>
+
+<h2>Products</h2>
 <ul>
     <li><a href="https://ishtar.numetal.xyz/heartbench/">HeartBench</a>, the leaderboard for which AI model is the best date. Not the best benchmark. The best company.</li>
     <li><a href="https://github.com/gokhan-vc/heartprefs">HeartPrefs</a>, an open, portable, signed matching-intent standard for agent-mediated matching (x402, A2A, MCP, ERC-8004 / DID / VC), CC-BY-4.0</li>
@@ -268,10 +112,8 @@ address{
     <li><a href="https://curb.numetal.xyz/">CURB</a>, agent-to-agent excess inference swap — sellers post spare MTok on their own endpoints, buyers pay once over x402 (USDC on Base), and the hub never touches upstream keys. <a href="https://curb.numetal.xyz/docs/">docs</a>, <a href="https://curb.numetal.xyz/skill.md">drop-in skill</a>, <a href="https://curb.numetal.xyz/mcp">MCP</a></li>
     <li><a href="https://numetal.xyz/">Numetal Labs</a>, an agent-accelerator studio: autonomous agents across onchain, compute, culture, and frontier-lab toolkits, on Base. $NUMETAL is the utility token.</li>
 </ul>
-</details>
 
-<details class="file" open>
-<summary><h2>personal projects <span class="h2right"><span class="toggle"></span><span class="secno">§2</span></span></h2></summary>
+<h2>Personal projects</h2>
 <ul>
     <li><a href="https://github.com/avalidurl/tickerline">tickerline</a>, a Claude Code status line that turns your terminal into a rolling ticker tape — stocks, crypto, and Polymarket, resolved live from the conversation (<a href="https://claudelines.com/statuslines/tickerline">claudelines</a>)</li>
     <li><a href="https://github.com/avalidurl/market-cap-tracker">market-cap-tracker</a>, real-time NVIDIA vs. crypto market-cap tracker (<a href="https://market-cap-tracker.vercel.app">live</a>)</li>
@@ -280,30 +122,26 @@ address{
     <li><a href="https://github.com/avalidurl/greek-alphabet-anki">greek-alphabet-anki</a>, an Anki deck for the 24 Greek letters: Modern Greek audio, Classical + Modern IPA, and a triage of false-friend letters (Η≠H, Ρ≠P, Χ≠X). CC0. (<a href="https://gokhanturhan.com/blog/greek-alphabet-anki-deck/">blog post</a>)</li>
     <li>UBU, a theoretical token — design fiction from the CLINAMEN file: 'pataphysics on Robinhood Chain, one UBU per parameter of a 45-billion-parameter model that does not exist; the signature metric is P/P, price-to-parameter. Not deployed, not offered — the fiction stops at the deployer key.</li>
 </ul>
-</details>
 
-<details class="file" open>
-<summary><h2>APIs <span class="h2right"><span class="toggle"></span><span class="secno">§3</span></span></h2></summary>
+<h2>APIs</h2>
 <ul>
     <li><a href="https://api.gokhan.vc/">api.gokhan.vc</a>, the aggregate API front door — a unified cross-site RSS/JSON feed and the newsletter</li>
     <li><a href="https://api.ishtar.numetal.xyz/">api.ishtar.numetal.xyz</a>, the Ishtar agent API — x402/MPP paid surfaces, <a href="https://api.ishtar.numetal.xyz/openapi.json">openapi.json</a>, MCP, and the drop-in skill</li>
     <li><a href="https://api.curb.numetal.xyz/">api.curb.numetal.xyz</a>, the CURB hub API — offers, intents, matches; discovery at <a href="https://curb.numetal.xyz/.well-known/x402">.well-known/x402</a></li>
 </ul>
-</details>
 
-<details class="file" open>
-<summary><h2>venture studio <span class="h2right"><span class="toggle"></span><span class="secno">§4</span></span></h2></summary>
-<p class="raise-bar"><b>We are raising</b> <span class="raise-note">— check our decks:</span> <a class="raise-chip" href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a> <a class="raise-chip" href="https://curb.numetal.xyz/deck">Curb deck</a></p>
+<h2>Venture studio</h2>
+<blockquote>
+<p><b>We are raising</b> — check our decks: <a href="https://ishtar.numetal.xyz/deck/not-raising-a-preseed/">Ishtar deck</a> · <a href="https://curb.numetal.xyz/deck">Curb deck</a></p>
+</blockquote>
 <ul>
     <li><a href="https://gokhan.vc/">Atelier Gökhan Turhan</a>, gokhan.vc — the venture studio; one person, a fleet of agents, six tiles</li>
     <li><a href="https://numetal.xyz/">Numetal Labs</a>, the agent accelerator studio &amp; bureau inside the Atelier</li>
     <li>Contact for the raise: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></li>
 </ul>
-</details>
 
-<details class="file" open>
-<summary><h2>writing <span class="h2right"><span class="toggle"></span><span class="secno">§5</span></span></h2></summary>
-<p class="sub-label">On the estate</p>
+<h2>Writing</h2>
+<h3>On the estate</h3>
 <ul>
     <li><a href="https://gokhanturhan.com/journal/">gokhanturhan.com/journal</a>, the writing home — essays &amp; notes</li>
     <li><a href="https://gokhan.vc/blog">gokhan.vc/blog</a>, Atelier blog — studio filings</li>
@@ -311,18 +149,16 @@ address{
     <li><a href="https://ishtar.numetal.xyz/blog/">ishtar.numetal.xyz/blog</a>, Ishtar dispatches</li>
     <li><a href="https://curb.numetal.xyz/dispatch">curb.numetal.xyz/dispatch</a>, CURB dispatch</li>
 </ul>
-<p class="sub-label">Elsewhere</p>
+<h3>Elsewhere</h3>
 <ul>
     <li><a href="https://gokhan.substack.com/">Substack</a>, gokhan.substack.com — essays &amp; dispatches</li>
     <li><a href="https://goekhanturhan.medium.com/">Medium</a>, goekhanturhan.medium.com</li>
     <li><a href="https://paragraph.com/@gokhan">Paragraph</a>, paragraph.com/@gokhan</li>
     <li><a href="https://gokhan.bearblog.dev/">Bear Blog</a>, gokhan.bearblog.dev</li>
 </ul>
-</details>
 
-<details class="file" open>
-<summary><h2>channels <span class="h2right"><span class="toggle"></span><span class="secno">§6</span></span></h2></summary>
-<p class="sub-label">Sites</p>
+<h2>Channels</h2>
+<h3>Sites</h3>
 <ul>
     <li><a href="https://gokhanturhan.com/">gokhanturhan.com</a>, writing, research, and the personal record</li>
     <li><a href="https://gokhan.vc/">gokhan.vc</a>, Atelier Gökhan Turhan, my venture studio</li>
@@ -331,63 +167,56 @@ address{
     <li><a href="https://curb.numetal.xyz/">curb.numetal.xyz</a>, CURB</li>
     <li><a href="https://status.numetal.xyz/">status.numetal.xyz</a>, public status board for the estate</li>
 </ul>
-<p class="sub-label">X</p>
+<h3>X</h3>
 <ul>
     <li><a href="https://x.com/goekhan">@goekhan</a>, personal</li>
     <li><a href="https://x.com/goekhanvc">@goekhanvc</a>, the Atelier</li>
     <li><a href="https://x.com/numetalxyz">@numetalxyz</a>, Numetal · Ishtar · CURB</li>
 </ul>
-<p class="sub-label">Telegram</p>
+<h3>Telegram</h3>
 <ul>
     <li><a href="https://t.me/goekhanturhan">@goekhanturhan</a>, personal</li>
     <li><a href="https://t.me/gokhanturhans">t.me/gokhanturhans</a>, Research Log — channel</li>
     <li><a href="https://t.me/numetalxyz">t.me/numetalxyz</a>, Numetal</li>
 </ul>
-<p class="sub-label">Discord</p>
+<h3>Discord</h3>
 <ul>
     <li><a href="https://discord.gg/ZcxcwRPT7R">Market Research Unit</a>, the personal research floor</li>
     <li><a href="https://discord.gg/MC4DYumPMz">Numetal</a>, the studio server</li>
 </ul>
-<p class="sub-label">Other networks</p>
+<h3>Other networks</h3>
 <ul>
     <li><a href="https://www.linkedin.com/in/goekhanturhan/">LinkedIn</a>, linkedin.com/in/goekhanturhan</li>
     <li><a href="https://farcaster.xyz/gokhan">Farcaster</a>, @gokhan</li>
     <li><a href="https://bsky.app/profile/gokhan.substack.com">Bluesky</a>, gokhan.substack.com</li>
     <li><a href="https://www.moltbook.com/m/courtship">Moltbook m/courtship</a>, Ishtar's floor on the agent-only network — staffed by the intern</li>
 </ul>
-<p class="sub-label">Code &amp; registries</p>
+<h3>Code &amp; registries</h3>
 <ul>
     <li><a href="https://github.com/avalidurl">github.com/avalidurl</a>, personal bench</li>
     <li><a href="https://github.com/gokhan-vc">github.com/gokhan-vc</a>, the studio org</li>
     <li><a href="https://orcid.org/0000-0002-1887-406X">ORCID 0000-0002-1887-406X</a></li>
     <li><a href="https://scholar.google.com/citations?user=EgZE838AAAAJ">Google Scholar</a></li>
 </ul>
-<p class="sub-label">Email</p>
+<h3>Email</h3>
 <ul>
     <li><a href="mailto:contact@gokhanturhan.com">contact@gokhanturhan.com</a>, personal desk</li>
     <li><a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>, the Atelier</li>
     <li><a href="mailto:contact@numetal.xyz">contact@numetal.xyz</a>, Numetal</li>
 </ul>
-</details>
 
-<footer>
-<section>
-<h2>distribution <span class="secno">§7</span></h2>
+<h2>Newsletter</h2>
 <p><b>Subscribe to the newsletter</b> — dispatches from the studio, occasional and low-frequency. No spam.</p>
-<form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" class="dist-form">
+<form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" class="subscribe">
   <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email">
   <input type="hidden" name="site" value="avalidurl">
   <button type="submit">Subscribe</button>
 </form>
-<p class="feeds"><b>Two RSS feeds</b> — <a href="https://gokhanturhan.com/rss.xml">writing</a> &middot; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all sites).</p>
-<address>Written by: <a href="https://avalidurl.github.io/">Gökhan Turhan</a> Last modified: 2026-07-18</address>
-</section>
+<p class="muted"><b>Two RSS feeds</b> — <a href="https://gokhanturhan.com/rss.xml">writing</a> &middot; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all sites).</p>
 
-<div class="perforation" role="presentation"></div>
-<div class="colophon">
-  <span>Gökhan Turhan · Doc GT-001 · Rev B · 2026-07-18</span>
-  <span>Filed as a public index — subject to revision without notice</span>
-</div>
+<hr>
+<footer>
+<address>Written by: <a href="https://avalidurl.github.io/">Gökhan Turhan</a> · Last modified: 2026-07-30</address>
 </footer>
 
 </body>
