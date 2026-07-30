@@ -62,6 +62,17 @@ blockquote{
   border-left:.25em solid var(--border);
 }
 hr{height:.25em;padding:0;margin:24px 0;background-color:var(--border);border:0}
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px 2rem;
+  flex-wrap:wrap;
+  padding-bottom:.3em;
+  border-bottom:1px solid var(--border);
+  margin-bottom:16px;
+}
+.header-row h1{border-bottom:0;padding-bottom:0;margin-bottom:0}
 .subscribe{display:flex;gap:8px;flex-wrap:wrap;max-width:440px}
 .subscribe input[type="email"]{
   flex:1;min-width:190px;
@@ -82,19 +93,24 @@ hr{height:.25em;padding:0;margin:24px 0;background-color:var(--border);border:0}
 .muted{color:var(--muted)}
 footer{font-size:14px;color:var(--muted)}
 footer address{font-style:normal}
-/* two-column flow on desktop; single column below 1012px */
+/* two explicit columns on desktop; single column below 1012px */
 @media (min-width:1012px){
-  .cols{columns:2;column-gap:3rem}
-  .cols h2,.cols h3{break-after:avoid}
-  .cols li,.cols blockquote,.cols form{break-inside:avoid}
-  .cols>h2:first-child{margin-top:0}
+  .cols{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem;align-items:start}
+  .col-left>h2:first-child,.col-right>h2:first-child{margin-top:0}
 }
 </style>
 </head>
 
 <body>
 
+<div class="header-row">
 <h1>Gökhan Turhan</h1>
+<form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" class="subscribe" title="Subscribe to the newsletter — occasional and low-frequency, no spam">
+  <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email">
+  <input type="hidden" name="site" value="avalidurl">
+  <button type="submit">Subscribe</button>
+</form>
+</div>
 
 <p>Full-stack builder and solopreneur — one person, a fleet of agents. Ships agent-native products end to end — a venue, a payment rail, a benchmark, an open standard, a security program — across fintech infrastructure, AI-native tooling, and tokenized markets. Live, in production, taking real machine payments.</p>
 
@@ -103,6 +119,8 @@ footer address{font-style:normal}
 <p>Full record: <a href="/cv/">CV</a> (mirrored from <a href="https://gokhanturhan.com/cv/">gokhanturhan.com/cv</a>).</p>
 
 <div class="cols">
+
+<div class="col-left">
 
 <h2>Products</h2>
 <ul>
@@ -122,6 +140,7 @@ footer address{font-style:normal}
     <li><a href="https://numetal.xyz/">Numetal Labs</a>, an agent-accelerator studio: autonomous agents across onchain, compute, culture, and frontier-lab toolkits, on Base. $NUMETAL is the utility token.</li>
     <li><a href="https://reclaim.numetal.xyz/">RECLAIM</a>, get your art out of dead marketplaces — finds your stranded creator NFTs across Foundation and Zora and gets them back. Non-custodial.</li>
     <li><a href="https://plaintext.numetal.xyz/">plaintext</a>, a board of plain text — one box, markdown or nothing, a price on every line. Reading is free; every notice is a token on Robinhood Chain.</li>
+    <li>UBU, a theoretical token — design fiction from the CLINAMEN file: 'pataphysics on Robinhood Chain, one UBU per parameter of a 45-billion-parameter model that does not exist; the signature metric is P/P, price-to-parameter. Not deployed, not offered — the fiction stops at the deployer key.</li>
 </ul>
 
 <h2>Personal projects</h2>
@@ -129,9 +148,7 @@ footer address{font-style:normal}
     <li><a href="https://github.com/avalidurl/tickerline">tickerline</a>, a Claude Code status line that turns your terminal into a rolling ticker tape — stocks, crypto, and Polymarket, resolved live from the conversation (<a href="https://claudelines.com/statuslines/tickerline">claudelines</a>)</li>
     <li><a href="https://github.com/avalidurl/market-cap-tracker">market-cap-tracker</a>, real-time NVIDIA vs. crypto market-cap tracker (<a href="https://market-cap-tracker.vercel.app">live</a>)</li>
     <li><a href="https://github.com/avalidurl/sp100-financial-tracker">sp100-financial-tracker</a>, ultra-lightweight S&amp;P 100 tracker with real-time data (<a href="https://sp100-financial-tracker.pages.dev/">live</a>)</li>
-    <li><a href="https://github.com/avalidurl/gokhan-memex">gokhan-memex</a>, a digital garden / memex for finance, art, and technology</li>
     <li><a href="https://github.com/avalidurl/greek-alphabet-anki">greek-alphabet-anki</a>, an Anki deck for the 24 Greek letters: Modern Greek audio, Classical + Modern IPA, and a triage of false-friend letters (Η≠H, Ρ≠P, Χ≠X). CC0. (<a href="https://gokhanturhan.com/blog/greek-alphabet-anki-deck/">blog post</a>)</li>
-    <li>UBU, a theoretical token — design fiction from the CLINAMEN file: 'pataphysics on Robinhood Chain, one UBU per parameter of a 45-billion-parameter model that does not exist; the signature metric is P/P, price-to-parameter. Not deployed, not offered — the fiction stops at the deployer key.</li>
 </ul>
 
 <h2>APIs</h2>
@@ -150,6 +167,10 @@ footer address{font-style:normal}
     <li><a href="https://numetal.xyz/">Numetal Labs</a>, the agent accelerator studio &amp; bureau inside the Atelier</li>
     <li>Contact for the raise: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a></li>
 </ul>
+
+</div>
+
+<div class="col-right">
 
 <h2>Writing</h2>
 <h3>On the estate</h3>
@@ -216,19 +237,13 @@ footer address{font-style:normal}
     <li><a href="mailto:contact@numetal.xyz">contact@numetal.xyz</a>, Numetal</li>
 </ul>
 
-<h2>Newsletter</h2>
-<p><b>Subscribe to the newsletter</b> — dispatches from the studio, occasional and low-frequency. No spam.</p>
-<form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" class="subscribe">
-  <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email">
-  <input type="hidden" name="site" value="avalidurl">
-  <button type="submit">Subscribe</button>
-</form>
-<p class="muted"><b>Two RSS feeds</b> — <a href="https://gokhanturhan.com/rss.xml">writing</a> &middot; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all sites).</p>
+</div>
 
 </div>
 
 <hr>
 <footer>
+<p class="muted"><b>Two RSS feeds</b> — <a href="https://gokhanturhan.com/rss.xml">writing</a> &middot; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all sites). Newsletter dispatches are occasional and low-frequency — no spam.</p>
 <address>Written by: <a href="https://avalidurl.github.io/">Gökhan Turhan</a> · Last modified: 2026-07-30</address>
 </footer>
 
