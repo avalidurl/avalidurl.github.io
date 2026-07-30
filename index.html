@@ -82,6 +82,13 @@ hr{height:.25em;padding:0;margin:24px 0;background-color:var(--border);border:0}
 .muted{color:var(--muted)}
 footer{font-size:14px;color:var(--muted)}
 footer address{font-style:normal}
+/* two-column flow on desktop; single column below 1012px */
+@media (min-width:1012px){
+  .cols{columns:2;column-gap:3rem}
+  .cols h2,.cols h3{break-after:avoid}
+  .cols li,.cols blockquote,.cols form{break-inside:avoid}
+  .cols>h2:first-child{margin-top:0}
+}
 </style>
 </head>
 
@@ -94,6 +101,8 @@ footer address{font-style:normal}
 <p>Indie researcher, generalist. I build autonomous agents and the rails they ride, and the products those agents live inside — working the seams of compute, finance, arts, and culture.</p>
 
 <p>Full record: <a href="/cv/">CV</a> (mirrored from <a href="https://gokhanturhan.com/cv/">gokhanturhan.com/cv</a>).</p>
+
+<div class="cols">
 
 <h2>Products</h2>
 <ul>
@@ -213,6 +222,8 @@ footer address{font-style:normal}
   <button type="submit">Subscribe</button>
 </form>
 <p class="muted"><b>Two RSS feeds</b> — <a href="https://gokhanturhan.com/rss.xml">writing</a> &middot; <a href="https://api.gokhan.vc/feed.xml">everything</a> (all sites).</p>
+
+</div>
 
 <hr>
 <footer>
