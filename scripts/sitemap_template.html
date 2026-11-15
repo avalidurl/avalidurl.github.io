@@ -128,6 +128,7 @@ h1 {
   cursor: pointer;
 }
 .subscribe button:hover { background: var(--ikb); border-color: var(--ikb); }
+.hp { position: absolute; left: -9999px; }
 .local-nav {
   font-size: 0.92rem;
   margin: 0 0 1.25rem;
@@ -391,14 +392,15 @@ footer.foot a { color: var(--ikb); }
     <p class="subhead">Sitemap of gokhanturhan.com</p>
     <p class="lede">A complete, browsable map of every page on the site: products and their filings, the journal, publishing, tools and the archive.</p>
   </div>
-  <form method="POST" action="https://api.gokhan.vc/newsletter/subscribe" class="subscribe" title="Subscribe to the newsletter — occasional and low-frequency, no spam">
+  <form method="POST" action="https://gokhanturhan.com/newsletter/subscribe" class="subscribe" title="Subscribe to the journal">
     <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email">
     <input type="hidden" name="site" value="avalidurl">
+    <input type="text" name="company" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
     <button type="submit">Subscribe</button>
   </form>
 </header>
 
-<p class="local-nav">This page lists gokhanturhan.com. A local copy of the CV also lives <a href="/cv/">here on this host</a>.</p>
+<p class="local-nav">This page lists gokhanturhan.com. A local copy of the CV lives <a href="/cv/">here</a>. The newsletter mirror is <a href="/newsletter/">/newsletter/</a>. The list itself is <a href="https://gokhanturhan.com/newsletter/">gokhanturhan.com/newsletter</a>.</p>
 
 <div class="filter">
   <label for="q">Filter the sitemap</label>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Newsletter — Gökhan Turhan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mirror of the journal list. The canonical newsletter is https://gokhanturhan.com/newsletter/.">
+<link rel="canonical" href="https://gokhanturhan.com/newsletter/">
+<link rel="icon" href="https://avatars.githubusercontent.com/u/11991363?v=4">
+<style>
+:root{--fg:#1f2328;--bg:#ffffff;--muted:#59636e;--border:#d1d9e0;--link:#0969da;--btn:#1f883d;--btn-hover:#1a7f37}
+@media (prefers-color-scheme: dark){:root{--fg:#f0f6fc;--bg:#0d1117;--muted:#9198a1;--border:#3d444d;--link:#4493f8;--btn:#238636;--btn-hover:#29903b}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:var(--fg);background:var(--bg);max-width:720px;margin:0 auto;padding:45px;word-wrap:break-word}
+@media (max-width:767px){body{padding:15px}}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+h1{margin:0 0 16px;font-size:2em;font-weight:600;line-height:1.25;padding-bottom:.3em;border-bottom:1px solid var(--border)}
+p{margin-top:0;margin-bottom:16px}
+.subscribe{display:flex;gap:8px;flex-wrap:wrap;max-width:440px}
+.subscribe input[type="email"]{flex:1;min-width:190px;padding:5px 12px;font-size:14px;line-height:20px;color:var(--fg);background:var(--bg);border:1px solid var(--border);border-radius:6px}
+.subscribe button{padding:5px 16px;font-size:14px;font-weight:600;line-height:20px;color:#fff;background:var(--btn);border:1px solid rgba(31,35,40,.15);border-radius:6px;cursor:pointer}
+.subscribe button:hover{background:var(--btn-hover)}
+.hp{position:absolute;left:-9999px;top:-9999px}
+footer{font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<h1>Newsletter</h1>
+<p>This page is a mirror. The list, the letters, and the confirmation live on the canonical page: <a href="https://gokhanturhan.com/newsletter/">https://gokhanturhan.com/newsletter/</a>.</p>
+<form method="POST" action="https://gokhanturhan.com/newsletter/subscribe" class="subscribe">
+  <input type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Email">
+  <input type="hidden" name="site" value="avalidurl">
+  <input type="text" name="company" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+  <button type="submit">Subscribe</button>
+</form>
+<p>The journal is <a href="https://gokhanturhan.com/journal/">https://gokhanturhan.com/journal/</a>. The feed is <a href="https://gokhanturhan.com/rss.xml">https://gokhanturhan.com/rss.xml</a>. That feed is the journal plus the latest post from <a href="https://blyg.gokhanturhan.com/">Gökhan Turhan's Blyg</a>.</p>
+<p>A Blyg is a small site for one person's posts. A post can answer someone else's post and keep both canonical URLs. The latest letter is <a href="https://gokhanturhan.com/journal/swarms-will-be-obsolete/">Swarms will be obsolete under a few years, too</a>. The reply itself is <a href="https://blyg.gokhanturhan.com/t/4dw6zd81drr19jwdxbgq4r8eqx/">https://blyg.gokhanturhan.com/t/4dw6zd81drr19jwdxbgq4r8eqx/</a>. The post it answers is <a href="https://blyg.artlu.xyz/t/0hzp5c1bppnjmdd6tcpg1vyff8/">https://blyg.artlu.xyz/t/0hzp5c1bppnjmdd6tcpg1vyff8/</a>.</p>
+<p>feedhub, the old gateway, is <a href="https://github.com/avalidurl/feedhub">avalidurl/feedhub</a>. It is not the list. <code>api.gokhan.vc</code> does not resolve.</p>
+<p>Public contact: <a href="mailto:contact@gokhan.vc">contact@gokhan.vc</a>.</p>
+<footer><address><a href="/">Gökhan Turhan</a> · canonical record at <a href="https://gokhanturhan.com/newsletter/">gokhanturhan.com/newsletter</a></address></footer>
+</body>
+</html>
