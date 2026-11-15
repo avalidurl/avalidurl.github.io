@@ -332,15 +332,40 @@ ul.cloud .ttl {
   padding: 0.4rem 0 0;
   margin-top: 0.6rem;
 }
-.months-wrap > details > summary {
+.months-wrap > details > summary,
+.entry.nest > details > summary {
   display: flex;
-  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem;
+  justify-content: flex-start;
   cursor: pointer;
   list-style: none;
   padding: 0.4rem 0;
   font-weight: 600;
 }
-.months-wrap > details > summary::-webkit-details-marker { display: none; }
+.months-wrap > details > summary::-webkit-details-marker,
+.entry.nest > details > summary::-webkit-details-marker { display: none; }
+.entry.nest {
+  display: block;
+  padding-left: 0;
+}
+.entry.nest > details > summary .ttl {
+  flex: 1 1 auto;
+  font-weight: 600;
+}
+.entry.nest > details > ul.list {
+  margin: 0 0 0.35rem 1.15rem;
+}
+.twist {
+  flex: 0 0 1.1em;
+  color: var(--orange);
+  font-weight: 400;
+}
+.twist::before { content: "▸"; }
+details[open] > summary > .twist::before { content: "▾"; }
+.group-nest > details > summary { justify-content: space-between; }
+.group-nest > details > summary .group-label { flex: 1 1 auto; }
+.group-nest > details > ul.cloud { margin: 0.2rem 0 0.6rem 1.15rem; }
 .cta {
   margin-top: 3rem;
   padding: 2rem 0 0;
@@ -471,11 +496,14 @@ footer.foot a { color: var(--ikb); }
           n += el.querySelectorAll("a.filing").length;
         }
       });
-      sec.querySelectorAll("li.tag-cloud").forEach(function (cloud) {
-        const visible = cloud.querySelectorAll("li.entry:not([hidden])").length;
-        cloud.hidden = needle && visible === 0;
-        const prev = cloud.previousElementSibling;
-        if (prev && prev.classList.contains("group-head")) prev.hidden = cloud.hidden;
+      sec.querySelectorAll("li.nest").forEach(function (nest) {
+        const visible = nest.querySelectorAll("li.entry:not([hidden])").length;
+        const selfHit = !needle || (nest.getAttribute("data-hay") || "").toLowerCase().indexOf(needle) !== -1;
+        nest.hidden = !!needle && visible === 0 && !selfHit;
+        if (needle && visible > 0) {
+          const d = nest.querySelector(":scope > details");
+          if (d) d.open = true;
+        }
       });
       const months = sec.querySelector("li.months-wrap");
       if (months) {
@@ -507,10 +535,10 @@ footer.foot a { color: var(--ikb); }
 
   q.addEventListener("input", apply);
   expandBtn.addEventListener("click", function () {
-    document.querySelectorAll("section.sec > details, .months-wrap > details").forEach(function (d) { d.open = true; });
+    document.querySelectorAll("details").forEach(function (d) { d.open = true; });
   });
   collapseBtn.addEventListener("click", function () {
-    document.querySelectorAll("section.sec > details, .months-wrap > details").forEach(function (d) { d.open = false; });
+    document.querySelectorAll("details").forEach(function (d) { d.open = false; });
   });
 })();
 </script>

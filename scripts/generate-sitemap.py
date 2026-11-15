@@ -501,7 +501,11 @@ def fetch_rss() -> dict[str, tuple[str, datetime | None]]:
     except RuntimeError as e:
         print(f"warning: RSS fetch failed: {e}", file=sys.stderr)
         return {}
-    root = ET.fromstring(raw)
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError as e:
+        print(f"warning: RSS parse failed: {e}", file=sys.stderr)
+        return {}
     out: dict[str, tuple[str, datetime | None]] = {}
     for item in root.findall(".//item"):
         link = (item.findtext("link") or "").strip()
@@ -664,15 +668,58 @@ def entry_html(
     )
 
 
-def tree_items(paths: list[str], extra: dict, product: str, name: str) -> str:
-    parts = []
+def child_map(paths: list[str]) -> dict[str, list[str]]:
+    seen: set[str] = set()
+    norms: list[str] = []
     for p in paths:
-        depth = max(0, norm_path(p).strip("/").count("/") - 1)
+        n = norm_path(p)
+        if n in seen:
+            continue
+        seen.add(n)
+        norms.append(n)
+    kids: dict[str, list[str]] = defaultdict(list)
+    for n in norms:
+        parent = n.rsplit("/", 1)[0]
+        while parent and parent not in seen:
+            parent = parent.rsplit("/", 1)[0] if "/" in parent else ""
+        kids[parent].append(n)
+    for key in kids:
+        kids[key].sort()
+    return kids
+
+
+def render_nodes(parent: str, kids: dict[str, list[str]], extra: dict, product: str, name: str) -> str:
+    parts = []
+    for p in kids.get(parent, []):
         title = resolve_title(p, extra)
-        parts.append(
-            entry_html(p, title, extra_class="sub", depth=depth, product=product, hay_extra=name)
-        )
+        sub = kids.get(p) or []
+        if sub:
+            inner = render_nodes(p, kids, extra, product, name)
+            href = public_url(p)
+            hay = " ".join(x for x in (title, p, href, name) if x).lower()
+            prod = f' data-product="{esc(product)}"' if product else ""
+            parts.append(
+                f'<li class="entry nest sub" data-hay="{esc(hay)}" data-path="{esc(p)}"{prod}>'
+                f'<details><summary><span class="twist" aria-hidden="true"></span>'
+                f'<a class="ttl" href="{esc(href)}">{esc(title)}</a></summary>'
+                f'<ul class="list">{inner}</ul></details></li>'
+            )
+        else:
+            parts.append(
+                entry_html(p, title, extra_class="sub", product=product, hay_extra=name)
+            )
     return "\n".join(parts)
+
+
+def group_nest(label: str, hay: str, path: str, inner: str, count: int, *, cloud: bool = False) -> str:
+    ul = "cloud" if cloud else "list"
+    return (
+        f'<li class="entry nest group-nest" data-hay="{esc(hay)}" data-path="{esc(path)}">'
+        f'<details><summary><span class="twist" aria-hidden="true"></span>'
+        f'<span class="group-label">{esc(label)}</span>'
+        f'<span class="count">{count}</span></summary>'
+        f'<ul class="{ul}">{inner}</ul></details></li>'
+    )
 
 
 def section_html(sid: str, title: str, count: int, inner: str, *, open_: bool = True) -> str:
@@ -709,11 +756,19 @@ def build_html(
             continue
         if norm_path(p) == "/about":
             seen_about = True
-            core_bits.append(entry_html(p, resolve_title(p, titles_only)))
-            for c in about_children:
+            if about_children:
+                inner = render_nodes("", child_map(about_children), titles_only, "", "about")
+                href = public_url(p)
+                title = resolve_title(p, titles_only)
+                hay = " ".join(x for x in (title, p, href, " ".join(about_children)) if x).lower()
                 core_bits.append(
-                    entry_html(c, resolve_title(c, titles_only), extra_class="sub", depth=1)
+                    f'<li class="entry nest" data-hay="{esc(hay)}" data-path="{esc(p)}">'
+                    f'<details><summary><span class="twist" aria-hidden="true"></span>'
+                    f'<a class="ttl" href="{esc(href)}">{esc(title)}</a></summary>'
+                    f'<ul class="list">{inner}</ul></details></li>'
                 )
+            else:
+                core_bits.append(entry_html(p, resolve_title(p, titles_only)))
             continue
         core_bits.append(entry_html(p, resolve_title(p, titles_only)))
     if about_children and not seen_about:
@@ -726,7 +781,26 @@ def build_html(
     prod_bits = []
     prod_count = 0
     for slug, name, filing, others, root in groups:
-        if root:
+        child_html = render_nodes("", child_map(others), titles_only, slug, name) if others else ""
+        if root and child_html:
+            href = public_url(root)
+            hay = " ".join(x for x in (name, root, href, " ".join(others)) if x).lower()
+            filing_html = ""
+            if filing:
+                fh = public_url(filing)
+                filing_html = f'<a class="filing" href="{esc(fh)}">Filing</a>'
+                hay += " filing " + filing.lower()
+            prod_bits.append(
+                f'<li class="entry product-root nest" data-hay="{esc(hay)}" data-path="{esc(root)}" data-product="{esc(slug)}">'
+                f'<details><summary><span class="twist" aria-hidden="true"></span>'
+                f'<a class="ttl" href="{esc(href)}">{esc(name)}</a>{filing_html}</summary>'
+                f'<ul class="list">{child_html}</ul></details></li>'
+            )
+            prod_count += 1
+            if filing:
+                prod_count += 1
+            prod_count += len(others)
+        elif root:
             prod_bits.append(
                 entry_html(
                     root,
@@ -743,8 +817,11 @@ def build_html(
         elif filing:
             prod_bits.append(entry_html(filing, f"{name} \u2014 Filing", product=slug))
             prod_count += 1
-        if others:
-            prod_bits.append(tree_items(others, titles_only, slug, name))
+            if child_html:
+                prod_bits.append(child_html)
+                prod_count += len(others)
+        elif child_html:
+            prod_bits.append(child_html)
             prod_count += len(others)
     counts["products"] = prod_count
 
@@ -777,7 +854,7 @@ def build_html(
         jour_bits.append(
             '<li class="entry months-wrap" data-hay="year month archive journal indexes" data-path="/journal/">'
             '<details class="inner">'
-            f'<summary><span class="sec-title">By year and month</span>'
+            f'<summary><span class="twist" aria-hidden="true"></span><span class="sec-title">By year and month</span>'
             f'<span class="count">{len(month_indexes)}</span></summary>'
             f'<ul class="list">{inner_m}</ul>'
             "</details></li>"
@@ -786,15 +863,7 @@ def build_html(
 
     # ---- publishing ----
     pub_paths = sorted(buckets.get("publishing", []))
-    pub_bits = [
-        entry_html(
-            p,
-            resolve_title(p, titles_only),
-            extra_class="sub" if norm_path(p) != "/publishing" else "",
-            depth=max(0, norm_path(p).strip("/").count("/")),
-        )
-        for p in pub_paths
-    ]
+    pub_bits = [render_nodes("", child_map(pub_paths), titles_only, "", "publishing")]
     counts["publishing"] = len(pub_paths)
 
     # ---- tools / lists / art ----
@@ -829,10 +898,15 @@ def build_html(
             entry_html(p, resolve_title(p, titles_only), extra_class="tag") for p in cats
         )
         arch_bits.append(
-            '<li class="entry group-head" data-hay="archive categories" data-path="/archive/categories/">'
-            '<span class="group-label">Categories</span></li>'
+            group_nest(
+                "Categories",
+                "archive categories " + " ".join(cats),
+                "/archive/categories/",
+                cat_inner,
+                len(cats),
+                cloud=True,
+            )
         )
-        arch_bits.append(f'<li class="tag-cloud" data-hay="{" ".join(cats)}"><ul class="cloud">{cat_inner}</ul></li>')
     if tags_index:
         arch_bits.append(entry_html("/archive/tags", "All tags", extra_class="index-row"))
     if tags:
@@ -840,10 +914,15 @@ def build_html(
             entry_html(p, resolve_title(p, titles_only), extra_class="tag") for p in tags
         )
         arch_bits.append(
-            '<li class="entry group-head" data-hay="archive tags" data-path="/archive/tags/">'
-            '<span class="group-label">Tags</span></li>'
+            group_nest(
+                "Tags",
+                "archive tags " + " ".join(tags),
+                "/archive/tags/",
+                tag_inner,
+                len(tags),
+                cloud=True,
+            )
         )
-        arch_bits.append(f'<li class="tag-cloud" data-hay="{" ".join(tags)}"><ul class="cloud">{tag_inner}</ul></li>')
     counts["archive"] = len(arch)
 
     # ---- other ----
