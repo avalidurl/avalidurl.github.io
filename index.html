@@ -34,6 +34,11 @@
   --rule: #d6d6d6;
   --ikb: #002FA7;
   --orange: #ff4d3a;
+  --h1: #002FA7;
+  --h2: #ff4d3a;
+  --h3: #0b7a43;
+  --h4: #6d28d9;
+  --h5: #9a3412;
   --sans: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -351,11 +356,27 @@ ul.cloud .ttl {
 }
 .entry.nest > details > summary .ttl {
   flex: 1 1 auto;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 .entry.nest > details > ul.list {
-  margin: 0 0 0.35rem 1.15rem;
+  margin: 0.15rem 0 0.45rem 0.35rem;
+  padding: 0 0 0.15rem 1.15rem;
+  border-left: 3px solid var(--h1);
 }
+.entry.nest > details > summary > .twist { color: var(--h1); }
+.entry.nest .entry.nest > details > summary .ttl { font-size: 1.05rem; font-weight: 600; }
+.entry.nest .entry.nest > details > ul.list { border-left-color: var(--h2); }
+.entry.nest .entry.nest > details > summary > .twist { color: var(--h2); }
+.entry.nest .entry.nest .entry.nest > details > summary .ttl { font-size: 0.98rem; font-weight: 600; }
+.entry.nest .entry.nest .entry.nest > details > ul.list { border-left-color: var(--h3); }
+.entry.nest .entry.nest .entry.nest > details > summary > .twist { color: var(--h3); }
+.entry.nest .entry.nest .entry.nest .entry.nest > details > summary .ttl { font-size: 0.94rem; font-weight: 600; }
+.entry.nest .entry.nest .entry.nest .entry.nest > details > ul.list { border-left-color: var(--h4); }
+.entry.nest .entry.nest .entry.nest .entry.nest > details > summary > .twist { color: var(--h4); }
+.entry.nest .entry.nest .entry.nest .entry.nest .entry.nest > details > summary .ttl { font-size: 0.92rem; }
+.entry.nest .entry.nest .entry.nest .entry.nest .entry.nest > details > ul.list { border-left-color: var(--h5); }
+.entry.nest .entry.nest .entry.nest .entry.nest .entry.nest > details > summary > .twist { color: var(--h5); }
 .twist {
   flex: 0 0 1.1em;
   color: var(--orange);
@@ -430,7 +451,7 @@ footer.foot a { color: var(--ikb); }
 <div class="filter">
   <label for="q">Filter the sitemap</label>
   <input type="search" id="q" placeholder="Filter by title or address…" autocomplete="off" enterkeyhint="search">
-  <span class="totals"><b id="shown">792</b> / 792</span>
+  <span class="totals"><b id="shown">793</b> / 793</span>
   <div class="toggles">
     <button type="button" id="expand">Expand all</button>
     <button type="button" id="collapse">Collapse all</button>
@@ -440,7 +461,7 @@ footer.foot a { color: var(--ikb); }
 <nav class="toc" aria-label="Sections">
 <a href="#core">Home &amp; core <span class="toc-n" data-for="core">33</span></a>
 <a href="#products">Products <span class="toc-n" data-for="products">250</span></a>
-<a href="#journal">Journal <span class="toc-n" data-for="journal">117</span></a>
+<a href="#journal">Journal <span class="toc-n" data-for="journal">118</span></a>
 <a href="#publishing">Publishing <span class="toc-n" data-for="publishing">13</span></a>
 <a href="#tools">Tools, lists &amp; art <span class="toc-n" data-for="tools">4</span></a>
 <a href="#archive">Archive <span class="toc-n" data-for="archive">369</span></a>
@@ -668,7 +689,8 @@ footer.foot a { color: var(--ikb); }
 <li class="entry product-root" data-hay="the tape exchange · $tapex /tape-exchange https://gokhanturhan.com/tape-exchange/ filing filing /tape-exchange/file" data-path="/tape-exchange" data-product="tape-exchange"><a class="ttl" href="https://gokhanturhan.com/tape-exchange/">The Tape Exchange · $TAPEX</a><a class="filing" href="https://gokhanturhan.com/tape-exchange/file/">Filing</a></li>
 <li class="entry product-root nest" data-hay="the token estate /coins https://gokhanturhan.com/coins/ /coins/leaderboard filing /coins/file" data-path="/coins" data-product="coins"><details><summary><span class="twist" aria-hidden="true"></span><a class="ttl" href="https://gokhanturhan.com/coins/">The Token Estate</a><a class="filing" href="https://gokhanturhan.com/coins/file/">Filing</a></summary><ul class="list"><li class="entry sub" data-hay="leaderboard /coins/leaderboard https://gokhanturhan.com/coins/leaderboard/ the token estate" data-path="/coins/leaderboard" data-product="coins"><a class="ttl" href="https://gokhanturhan.com/coins/leaderboard/">Leaderboard</a></li></ul></details></li>
 <li class="entry product-root" data-hay="trust tax belief systems · $belief /belief-systems https://gokhanturhan.com/belief-systems/ filing filing /belief-systems/file" data-path="/belief-systems" data-product="belief-systems"><a class="ttl" href="https://gokhanturhan.com/belief-systems/">Trust Tax Belief Systems · $BELIEF</a><a class="filing" href="https://gokhanturhan.com/belief-systems/file/">Filing</a></li></ul></details></section>
-<section class="sec" id="journal" data-section="journal"><details open><summary><span class="sec-title">Journal</span><span class="count" data-count-total="117">117</span></summary><ul class="list"><li class="entry index-row" data-hay="all posts /journal https://gokhanturhan.com/journal/" data-path="/journal"><a class="ttl" href="https://gokhanturhan.com/journal/">All posts</a></li>
+<section class="sec" id="journal" data-section="journal"><details open><summary><span class="sec-title">Journal</span><span class="count" data-count-total="118">118</span></summary><ul class="list"><li class="entry index-row" data-hay="all posts /journal https://gokhanturhan.com/journal/" data-path="/journal"><a class="ttl" href="https://gokhanturhan.com/journal/">All posts</a></li>
+<li class="entry post" data-hay="agentic community notes caves /journal/agentic-community-notes-caves https://gokhanturhan.com/journal/agentic-community-notes-caves/ 15 nov 2026" data-path="/journal/agentic-community-notes-caves"><time class="when">15 Nov 2026</time><a class="ttl" href="https://gokhanturhan.com/journal/agentic-community-notes-caves/">agentic community notes caves</a></li>
 <li class="entry post" data-hay="swarms will be obsolete under a few years, too /journal/swarms-will-be-obsolete https://gokhanturhan.com/journal/swarms-will-be-obsolete/ 15 nov 2026" data-path="/journal/swarms-will-be-obsolete"><time class="when">15 Nov 2026</time><a class="ttl" href="https://gokhanturhan.com/journal/swarms-will-be-obsolete/">Swarms will be obsolete under a few years, too</a></li>
 <li class="entry post" data-hay="complementary substitutions /journal/complementary-substitutions https://gokhanturhan.com/journal/complementary-substitutions/ 1 aug 2026" data-path="/journal/complementary-substitutions"><time class="when">1 Aug 2026</time><a class="ttl" href="https://gokhanturhan.com/journal/complementary-substitutions/">Complementary Substitutions</a></li>
 <li class="entry post" data-hay="the model that dreams itself /journal/the-model-that-dreams-itself https://gokhanturhan.com/journal/the-model-that-dreams-itself/ 21 jul 2026" data-path="/journal/the-model-that-dreams-itself"><time class="when">21 Jul 2026</time><a class="ttl" href="https://gokhanturhan.com/journal/the-model-that-dreams-itself/">The Model That Dreams Itself</a></li>

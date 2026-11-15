@@ -5,6 +5,8 @@ on:
     # 09:00 Europe/Istanbul (UTC+3)
     - cron: "0 6 * * *"
   workflow_dispatch:
+  repository_dispatch:
+    types: [journal-post]
 
 permissions:
   contents: write
