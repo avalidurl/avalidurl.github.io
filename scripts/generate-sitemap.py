@@ -26,10 +26,16 @@ UA = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 )
 SITE = "https://gokhanturhan.com"
+SITE_HOST = "gokhanturhan.com"
 SITEMAP_INDEX = f"{SITE}/sitemap-index.xml"
 RSS_URL = f"{SITE}/rss.xml"
 SEARCH_URL = f"{SITE}/search.json"
 SM_NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
+
+def is_site_host(netloc: str) -> bool:
+    host = netloc.split("@")[-1].split(":")[0].strip().lower().rstrip(".")
+    return host == SITE_HOST or host.endswith("." + SITE_HOST)
 
 FEATURED = [
     "curb",
@@ -1006,8 +1012,7 @@ def main() -> int:
     raw_urls = fetch_sitemap_urls()
     paths = []
     for u in raw_urls:
-        host = urlparse(u).netloc
-        if host.endswith("gokhanturhan.com"):
+        if is_site_host(urlparse(u).netloc):
             paths.append(norm_path(urlparse(u).path))
     if not paths:
         paths = [norm_path(urlparse(u).path) for u in raw_urls]
