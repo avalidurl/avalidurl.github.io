@@ -61,6 +61,7 @@ PRODUCT_NAMES = {
     "ccru": "CCRU archive",
     "reclaim": "Reclaim",
     "plaintext": "plaintext",
+    "coins": "The Token Estate",
     "jesus": "Personal Jesus",
     "gokhan-vc": "G\u00f6khan Ventures",
     "agentbounty": "AgentBounty",
@@ -257,6 +258,7 @@ TITLE_MAP = {
     "/plaintext/roadmap": "Roadmap",
     "/plaintext/spec": "Spec",
     "/reclaim/galleries": "Galleries",
+    "/coins/leaderboard": "Leaderboard",
 }
 
 SEGMENT_TITLES = {
